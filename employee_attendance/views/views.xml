@@ -1,0 +1,92 @@
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="view_attendance_tree">
+			<field name="name">hr.attendance.tree</field>
+			<field name="model">hr.attendance</field>
+			<field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+			<field name="arch" type="xml">
+				<field name="check_out" position="after">
+					<field name="unauthorized_leave"/>
+					<field name="over_time" widget="float_time" />
+					<field name="early_left" widget="float_time" />
+					<field name="late_arrival" widget="float_time" />
+					<field name="late_days" widget="float_time"/>
+					<field name="badge_id" widget="float_time"/>
+					<field name="total_late_arrival" widget="float_time" sum="Total" />
+				</field>
+			</field>
+		</record>
+		<record id="view_hr_payslip_form_inherit" model="ir.ui.view">
+		  <field name="name">hr.payslip.form.inherit</field>
+		  <field name="model">hr.payslip</field>
+		  <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form" />
+		  <field name="arch" type="xml">
+			  <xpath expr="//field[@name='struct_id']" position="after">
+				  <field name="total_absences"/>
+				  <field name="late_days" />
+				  <field name="total_late_arrival"/>
+                  <field name="total_overall_absences"/>
+			  </xpath>
+			  <xpath expr="//button[@name='compute_sheet']" position="attributes">
+				  <attribute name="groups">employee_attendance.payslips_to_pay</attribute>
+			  </xpath>
+			  <xpath expr="//button[@name='compute_sheet']" position="attributes">
+				  <attribute name="groups">employee_attendance.all_payslips</attribute>
+			  </xpath>
+		  </field>
+		</record>
+		<record id="hr_employee_view_form_inherit" model="ir.ui.view">
+			<field name="name">hr.employee.form.inherit</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='work_email']" position="after">
+					<field name="isExecutive" string="Is Executive"/>
+				</xpath>
+			</field>
+		</record>
+		<!-- <record id="hr_payslip_run_view_form_inherit" model="ir.ui.view">
+			<field name="name">hr.payslip.run.view.form.inherit</field>
+			<field name="model">hr.payslip.run</field>
+			<field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='833']" position="attributes">
+					<attribute name="groups">employee_attendance.generate_payslip</attribute>
+				</xpath>
+			</field>
+		</record> -->
+		<record id="hr_employee_view_form_inherit_ext" model="ir.ui.view">
+			<field name="name">hr.employee.form.inherit</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//page[@name='hr_settings']//field[@name='pin']" position="after">
+					<field name="give_pension" string="Give Pension"/>
+				</xpath>
+			</field>
+		</record>
+		<record id="action_server_all_allocation_approve" model="ir.actions.server">
+            <field name="name">Approve All Allocation</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave_allocation"/>
+            <field name="state">code</field>
+            <field name="binding_model_id" ref="hr_holidays.model_hr_leave_allocation"/>
+            <field name="binding_type">action</field>
+            <field name="code">
+                for rec in records:
+                    rec.action_approve()
+            </field>
+        </record> 
+        <record id="action_server_all_allocation_confirm" model="ir.actions.server">
+            <field name="name">Confirm All Allocation</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave_allocation"/>
+            <field name="state">code</field>
+            <field name="binding_model_id" ref="hr_holidays.model_hr_leave_allocation"/>
+            <field name="binding_type">action</field>
+            <field name="code">
+                for rec in records:
+                    rec.action_confirm()
+            </field>
+        </record>
+
+	</data>
+</odoo>

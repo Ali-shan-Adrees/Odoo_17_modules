@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="offer_letter_report">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="line">
+                    <div class="page">
+                        <style>
+                        table.offer-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-bottom: 20px;
+                        }
+
+                        table.offer-table th,
+                        table.offer-table td {
+                            border: 1px solid black;
+                            padding: 6px 10px;
+                            text-align: left;
+                            vertical-align: top;
+                        }
+                        </style>
+                        <!-- Header -->
+                        <div style="width: 100%; overflow: hidden; margin-top:0px !important;">
+                            <div style="float: right;">
+                                <img t-att-src="'/offer_letter_report/static/description/icon.png'" style="float: right; margin-left: 100px;" />
+                                <img t-att-src="'/offer_letter_report/static/description/icon1.png'" style="float: right; max-height: 100px;" />
+                            </div>
+                            <div style="float: left; margin-top: 0%; font-weight: bold;">
+                                <p><strong>Reference Number:</strong> <span t-field="line.name" /></p>
+                                <p><strong>Date:</strong> <span t-field="line.date_issue" t-options='{"widget": "date"}' /></p>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 30px; font-weight: bold;">
+                           <table style="width: 100%;border: 1px solid white;">
+                                <tr>
+                                    <td style="width: 30%; border: none;">To:</td>
+                                    <td style="border: none;"><span t-if="line.applicant_id" t-field="line.applicant_id.partner_name" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: none;">NIC Number/ PP Number:</td>
+                                    <td style="border: none;"><span t-field="line.nic_passport" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: none;">Permanent Address:</td>
+                                    <td style="border: none;"><span t-field="line.permanent_address" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: none;">Contact No:</td>
+                                    <td style="border: none;"><span t-field="line.contact_number" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- Subject -->
+                        <h3 style="margin-bottom: 20px; text-align: center; font-weight: bold; text-decoration: underline;">
+                            LETTER OF APPOINTMENT
+                        </h3>
+                        <p style="text-align: center;">We are pleased to offer you the position of
+                            <strong><span t-if="line.applicant_id" t-field="line.applicant_id.job_id" /></strong> of according to the conditions agreed below.</p>
+                        <table class="offer-table" style="border-collapse: collapse; width: 100%; font-size: 12px;">
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black; padding: 8px;">JOB TITLE</th>
+                                <th style="border: 1px solid black; padding: 8px;" t-if="line.applicant_id" t-field="line.applicant_id.job_id"></th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black padding: 8px;">EMPLOYMENT DATE</th>
+                                <th style="border: 1px solid black padding: 8px;" t-field="line.employment_date" t-options='{"widget": "date"}'></th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black padding: 8px;">EMPLOYEE ID</th>
+                                <th style="border: 1px solid black padding: 8px;" t-field="line.employee_id">
+                                </th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black padding: 8px;">EMPLOYER</th>
+                                <th style="border: 1px solid black padding: 8px;" t-field="line.employer_id.name"></th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black padding: 8px;">WORKPLACE</th>
+                                <th style="border: 1px solid black padding: 8px;" t-field="line.workplace_id.name"></th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black padding: 8px;">IMMEDIATE SUPERVISOR</th>
+                                <th style="border: 1px solid black padding: 8px;" t-field="line.supervisor_id.name"></th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black padding: 8px;">WORKING HOURS</th>
+                                <th style="border: 1px solid black padding: 8px;" t-field="line.working_hours"></th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black padding: 8px;">WORKING DAYS</th>
+                                <th style="border: 1px solid black padding: 8px;" t-field="line.working_schedule_id.name"></th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black padding: 8px;">BASIC SALARY</th>
+                                <th style="border: 1px solid black; padding: 8px;" t-if="line.applicant_id" t-field="line.applicant_id.basic_salary"></th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black padding: 8px;">LIVING ALLOWANCE</th>
+                                <th style="border: 1px solid black padding: 8px;" t-field="line.living_allowance"></th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black padding: 8px;">FOOD ALLOWANCE</th>
+                                <th style="border: 1px solid black padding: 8px;" t-field="line.food_allowance"></th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black padding: 8px;">GROSS SALARY</th>
+                                <th style="border: 1px solid black; padding: 8px;" t-if="line.applicant_id" t-field="line.applicant_id.salary_proposed"></th>
+                            </tr>
+                            <tr style="border: 1px solid black;">
+                                <th style="border: 1px solid black padding: 8px;">DRESS CODE</th>
+                                <th style="border: 1px solid black padding: 8px;" t-field="line.dress_code"></th>
+                            </tr>
+                        </table>
+                        <div style="width: 100%; margin-top: 40px; border-top: 1px solid black padding-top: 20px; font-weight: bold; overflow: hidden;">
+                            <!-- Left -->
+                            <div style="display: inline-block; width: 30%; vertical-align: bottom;">
+                                <div style="text-decoration: underline;">Acceptance of this letter by the Candidate</div>
+                            </div>
+                            <div style="display: inline-block; width: 50%; text-align: right; vertical-align: top; margin-right: 40px;">
+                                <img t-att-src="'/offer_letter_report/static/description/icon2.png'" style="height: 200px; width: 170px" />
+                            </div>
+                            <!-- Right -->
+                            <div style="display: inline-block; width: 10%; text-align: right; vertical-align: top;">
+                                .......................
+                                <p style="text-align: center;">
+                                    Asima Luthfee <br />
+                                    Manager, Admin HR
+                                </p>
+                            </div>
+                        </div>
+                        <p>I have carefully accepted the above conditions of employment and I have received a copy of this letter.</p>
+                                              <table style="border: 1px solid white; width: 100%; margin-top:10px;">
+    <tr>
+        <td style="width: 33%; text-align: left;">
+            <p><strong>Signature:</strong>..............................</p>
+        </td>
+        <td style="width: 33%; text-align: center;">
+            <p><strong>Name:</strong>................................</p>
+        </td>
+        <td style="width: 33%; text-align: right;">
+            <p><strong>Date:</strong>..........................</p>
+        </td>
+    </tr>
+</table>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 12px; text-align: left; font-style: italic;">
+                        Please note that this Letter of Appointment will be treated as employment conditions agreed.
+                    </p>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
