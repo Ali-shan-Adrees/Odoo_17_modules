@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+A_1,card_printing_report,card_printing_report.model_card_printing_report,card_printing_report.security_group_for_customer_card_printing_report,1,1,1,1

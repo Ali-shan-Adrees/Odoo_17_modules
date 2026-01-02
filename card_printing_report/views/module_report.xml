@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <template id="card_printing_report">
+          <t t-call="web.html_container">
+             <t t-call="web.basic_layout">
+                <div class="page">
+                   <style type="text/css">
+                      .main_wraper {
+                         width: 1000px;
+                         margin: 0px auto;
+                         page-break-after: always !important;
+                         page-break-before: always !important;
+                      }
+
+                      table {
+                         border: 1px solid;
+                         border-collapse: collapse;
+                         margin-bottom: 20px;
+                      }
+
+                      th {
+                         border: 1px solid;
+                         border-collapse: collapse;
+                         padding: 5px;
+                         background: gainsboro;
+                         text-align: center;
+                         font-size:18px;
+                      }
+
+                      td {
+                         border: 1px solid;
+                         border-collapse: collapse;
+                         padding: 5px;
+                         font-size: 13px;
+                         text-align:center;
+                      }
+                      img {
+                         vertical-align: middle;
+                         border-style: none;
+                         height: 150px;
+                      }
+
+                      .tab_vat_right {
+                         text-align: center;
+                      }
+                   </style>
+                   <div class="main_wraper">
+                      <h3><center>Card Printing Report</center></h3>
+                      <br class="clear_float" />
+                      <table width="100%" class="data_tab">
+                         <tr>
+                            <th>Tag Number</th>
+                            <th>Serial Number</th>
+                            <th>Maturity Date</th>
+                            <th>QR Code</th>
+                         </tr>
+                         <t t-foreach="main_product_list" t-as="data">
+                            <tr>
+                               <td>
+                                  <span t-esc="data['tag_number']"/>
+                               </td>
+                               <td style="text-transform: capitalize;">
+                                  <span t-esc="data['product_id']"/>
+                               </td>
+                               <td>
+                                  <span t-esc="data['maturity_date']" t-options='{"widget": "date"}'/>
+                               </td>
+                               <td>
+                                  <span>
+                                     <div style="margin-top:10px">
+                                        <div style="text-align:center" id="qrcode_image">
+                                           <img t-att-src="data['qr_code']" />
+                                        </div>
+                                     </div>
+                                  </span>
+                               </td>
+                            </tr>
+                         </t>
+                      </table>
+                      <p style="text-align:center;"> <a href="https://www.eusol.net/" style="text-decoration:none; color:black;text-align:center;">Powered By: Eusol.net</a></p>
+                   </div>
+                </div>
+             </t>
+          </t>
+       </template>
+    </data>
+</odoo>

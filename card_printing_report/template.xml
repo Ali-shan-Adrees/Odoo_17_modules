@@ -1,0 +1,95 @@
+<!-- <?xml version="1.0" encoding="utf-8"?> -->
+<odoo>
+    <data>
+
+        <record id="card_printing_report_paperformat" model="report.paperformat">
+            <field name="name">Page For Customer Invoice Wizard Report</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">20</field>
+            <field name="margin_right">20</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- <report
+            id="customer_wizard_report" 
+            model="account.move"
+            name="customer_invoice_wizard.customer_invoice_wizard"
+            file="customer_invoice_wizard.customer_invoice_wizard"
+            report_type="qweb-html"
+            string="Customer Invoice Report"
+            paperformat="card_printing_report_paperformat"
+            menu="False"/> -->
+
+
+      <!--  <record id="card_printing_report_id" model="ir.actions.report">
+            <field name="name">Customer Invoice Report</field>
+            <field name="model">card.printing.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">card_printing_report.card_printing_report</field>
+            <field name="report_file">card_printing_report.card_printing_report</field>
+            <field name="print_report_name">'Card Printing  Report </field>
+            <field name="binding_model_id" ref="card_printing_report.model_card_printing_report" />
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="card_printing_report_paperformat" />
+        </record> -->
+
+        <record id="card_printing_report_id" model="ir.actions.report">
+            <field name="name">Card Printing Report</field>
+            <field name="model">card.printing.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">card_printing_report.card_printing_report</field>
+            <field name="report_file">card_printing_report.card_printing_report</field>
+            <field name="print_report_name">Card Printing Report</field>
+            <field name="attachment"/>
+            <field name="binding_model_id" ref="card_printing_report.model_card_printing_report"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="card_printing_report_action" model="ir.ui.view">
+            <field name="name">card_printing_report_action</field>
+            <field name="model">card.printing.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                        
+                    <group name="group_top">
+                        <group name="group_right">
+                          
+                            <field name="product_id"  options="{'no_open':True,'no_create': True}"  domain="[('stage','=','utilization')]" readonly="1" force_save="1"/>
+                            <!-- widget="many2many_tags" -->
+                        </group>
+
+                    </group>
+                    
+                        <footer style="height: 30px !important; border: none !important;">
+                            <button name="generate_report" type="object" string="Print" class = "oe_highlight" />
+                        </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- <record id="security_group_for_sub_agent_report" model="res.groups">
+            <field name="name">Security Group For sub_agent_report</field>
+        </record> -->
+
+        <record id="card_printing_report_action_menu" model="ir.actions.act_window">
+            <field name="name">Printing Card Report</field>
+            <field name="res_model">card.printing.report</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="card_printing_report_action"/>
+            <field name="target">new</field>
+        </record>
+        <!-- <menuitem id="card_printing_report_item" name="Card Printing Report" action="cucard_printing_report_action" parent="sale.menu_sale_report" groups="card_printing_report.security_group_for_customer_card_printing_report"/> -->
+
+        <!-- <menuitem id="card_printing_report_action_id" name="Card Printing Report" sequence="11" web_icon="mrp_workorder,static/description/icon.png"  action="card_printing_report_action_menu" groups="card_printing_report.security_group_for_customer_card_printing_report"/> -->
+        
+    </data>
+</odoo>
