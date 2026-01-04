@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="invoice_report_format" model="report.paperformat">
+            <field name="name">Invoice Report</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+        <!-- <report string="Invoice"
+        id="invoice_report_ext" 
+        model="account.move" 
+        report_type="qweb-html" 
+        name="invoice_report.invoice_report" 
+        file="invoice_report.invoice_report"
+        paperformat="invoice_report_format" 
+        print_report_name="'%s-' %(object.name)"
+        attachment="(object.name + '.pdf')"/> -->
+
+
+         <record id="invoice_report_ext" model="ir.actions.report">
+            <field name="name">Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">invoice_report.invoice_report</field>
+            <field name="report_file">invoice_report.invoice_report</field>
+            <field name="print_report_name">'Invoice - %s' %(object.name)</field>
+            <field name="binding_model_id" ref="account.model_account_move" />
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="invoice_report_format" />
+        </record>
+        <!-- print_report_name="'%s  %(object.name)"  -->
+      <template id="report_invoice_document_ext" inherit_id="account.report_invoice_document">              
+            <xpath expr="//div[hasclass('page')]" position="before">
+                 <h2 style='color:black;font-size: 2rem;margin-bottom: 0px !important;text-transform: capitalize !important;'>Tax Invoice </h2>
+            </xpath>
+        </template>
+        <!-- <record id="account_journal_boolean_ext" model="ir.ui.view">
+            <field name="name">account_journal_boolean_ext</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_bank_journal_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bank_account_id']" position="after">
+                    <field name="boolean_type" />
+                </xpath>
+            </field>
+        </record> -->
+    </data>
+</odoo>

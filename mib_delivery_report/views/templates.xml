@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="mib_delivery_report_pap" model="report.paperformat">
+            <field name="name">MIB Delivery order report</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">37</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+        <!-- <report 
+            id="mib_delivery_report_pap_ext" 
+            model="stock.picking" 
+            name="mib_delivery_report.mib_delivery_report" 
+            file="mib_delivery_report.mib_delivery_report" 
+            report_type="qweb-pdf" 
+            string="Delivery MIB" 
+            print_report_name=" 'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"
+            paperformat="mib_delivery_report_pap" /> -->
+
+
+         <record id="mib_delivery_report_pap_ext" model="ir.actions.report">
+            <field name="name">Delivery MIB</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">mib_delivery_report.mib_delivery_report</field>
+            <field name="report_file">mib_delivery_report.mib_delivery_report</field>
+            <field name="print_report_name">'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="mib_delivery_report_pap" />
+        </record>
+    </data>
+</odoo>

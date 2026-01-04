@@ -1,0 +1,553 @@
+<odoo>
+    <data>
+        <template id="invoice_report">
+            <t t-call="web.html_container">
+                <!-- <t t-call="web.basic_layout"> -->
+                <t t-foreach="docs" t-as="o">
+                    <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id">
+                        <div class="page">
+                            <style type="text/css">
+                            @media (min-width: 100px) {
+                                .container {
+                                    width: 100%;
+                                }
+                            }
+
+                            @media (min-width: 768px) {
+                                .container {
+                                    width: 100%;
+                                }
+                            }
+
+                            .container {
+                                width: 100%;
+                            }
+
+                            body {
+                                margin: 0px !important;
+                            }
+
+                            body.o_in_iframe {
+                                margin-top: 0px !important;
+                            }
+
+
+
+                            .main_wraper {
+                                width: 1000px;
+                                margin: 0px auto;
+
+                            }
+
+                            .main_div {
+                                width: 100%;
+                            }
+
+                            .left_div {
+                                width: 50%;
+                                float: left;
+                                font-size: 17px;
+                            }
+
+                            .right_div {
+                                width: 50%;
+                                float: left;
+                                font-size: 15px;
+                            }
+
+                            .right_div_6 {
+                                width: 35%;
+                                float: right;
+                                font-size: 17px;
+                            }
+
+                            .right_div_4 {
+                                width: 40%;
+                                float: left;
+                                margin-top: 10px;
+                                font-size: 18px;
+                            }
+
+                            .clearfloat {
+                                clear: both;
+                                float: none;
+                                width: 100%;
+                                height: 1px;
+                                display: block;
+                            }
+
+                            .left_div_1 {
+                                width: 16%;
+                                float: left;
+                                font-size: 17px;
+                            }
+
+                            .left_div_2 {
+                                width: 16%;
+                                float: left;
+                                font-size: 17px;
+                            }
+
+                            .left_div_3 {
+                                width: 16%;
+                                float: left;
+                                font-size: 17px;
+                            }
+
+                            .left_div_4 {
+                                width: 16%;
+                                float: left;
+                                font-size: 17px;
+                            }
+
+                            .left_div_5 {
+                                width: 16%;
+                                float: left;
+                                font-size: 17px;
+                            }
+
+                            .left_div_6 {
+                                width: 16%;
+                                float: left;
+                                font-size: 17px;
+                            }
+
+                            table {
+                                border-collapse: collapse;
+                            }
+
+                            th {
+                                border-top: 2px solid black;
+                                text-align: left;
+                                font-weight: bold;
+                                padding: 8px;
+                                font-size: 16px;
+                            }
+
+                            td {
+                                border-bottom: 2px solid black;
+                                text-align: left;
+                                padding: 4px;
+                                font-size: 16px;
+                            }
+
+                            .right_div_2 {
+                                float: right;
+                                width: 80%;
+                                font-size: 15px;
+                            }
+
+                            .right_div_3 {
+                                float: right;
+                                width: 21%;
+                            }
+
+                            .right_div_4 p {
+                                margin: 0px;
+                            }
+
+                            .left_logo_rehbar {
+                                float: left;
+                                width: 14%;
+                            }
+
+                            .left_company_detail {
+                                float: left;
+                                font-size: 15px;
+                                font-weight: bold;
+                                width: 30%;
+                                margin-top: 71px;
+                            }
+
+                            .left_logo_rehbar img {
+                                height: 140px;
+                            }
+
+                            .left_company_detail p {
+                                margin: 0px;
+                            }
+
+                            .left_div_9 {
+                                width: 40%;
+                                float: left;
+                                font-size: 18px;
+                                margin-left: 40px;
+                                font-weight: bold;
+                            }
+
+                            .right_div_9 {
+                                width: 46%;
+                                float: left;
+                                font-size: 18px;
+                                font-weight: bold;
+                                margin-left: 99px;
+                            }
+
+                            .left_logo_rehbar {
+                                float: left;
+                                width: 14%;
+                                margin-top: 60px;
+                            }
+
+                            .term {
+                                border: 1px solid black;
+                                width: 100%;
+                                padding: 10px;
+                                margin-left: 10px;
+                            }
+
+                            .right_div_7 h2 {
+                                width: 51%;
+                                text-align: center;
+                                float: right;
+                                margin-top: 10px;
+                                font-size: 34px;
+                                font-weight: bold;
+                            }
+
+                            .term p {
+                                margin: 0px;
+                            }
+
+
+                            .rectangle {
+                                position: relative;
+                                width: 200px;
+                                height: 0;
+                                border-left: 10px solid transparent;
+                                border-right: 10px solid transparent;
+                                border-bottom: 30px solid green;
+                                text-align: center;
+                                float: right;
+                                margin-right: 150px;
+                            }
+
+                            .rectangle span {
+                                color: white;
+                                font-weight: bold;
+                                vertical-align: middle;
+                            }
+                            </style>
+                            <div class="main_wraper">
+                                <div class="main_div">
+                                    <div class="left_logo_rehbar">
+                                        <img t-attf-src="data:image/*;base64,{{o.company_id.logo}}" />
+                                    </div>
+                                    <div class="left_company_detail">
+                                        <p>
+                                            <span t-esc="o.company_id.name"></span>
+                                        </p>
+                                        <p>
+                                            <span t-esc="o.company_id.street"></span>
+                                            <t t-if="o.company_id.street2">
+                                                <span t-esc="o.company_id.street2"></span>,
+                                            </t>
+                                            <t t-if="o.company_id.country_id.name">
+                                                <span t-esc="o.company_id.country_id.name"></span>
+                                            </t>
+                                        </p>
+                                        <!-- <p>
+                                            <span>VAT:</span>
+                                            <span t-esc="o.company_id.vat"></span>
+                                        </p> -->
+                                        <p>
+                                            <span>Phone:</span>
+                                            <span t-esc="o.company_id.phone"></span>
+                                        </p>
+                                        <p>
+                                            <span>Email:</span>
+                                            <span t-esc="o.company_id.email"></span>
+                                        </p>
+                                        <p>
+                                            <span>TIN:</span>
+                                            <span t-esc="o.company_id.vat"></span>
+                                        </p>
+                                        <p>
+                                            <span t-esc="o.company_id.website"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <br class="clearfloat" />
+                                <br class="clearfloat" />
+                                <div class="right_div_7">
+                                    <h2>TAX INVOICE</h2>
+                                </div>
+                                <br class="clearfloat" />
+                                <t t-if="o.amount_residual == 0">
+                                    <div class="rectangle">
+                                        <span>PAID</span>
+                                    </div>
+                                </t>
+                                <br class="clearfloat" />
+                                <div class="main_div">
+                                    <div class="left_div">
+                                        <t t-set="o" t-value="o.with_context(lang=lang)" />
+                                        <strong>Customer:</strong>
+                                        <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                                        <div t-if="o.partner_id.vat" class="mt16">
+                                            <t t-if="o.company_id.country_id.vat_label" t-esc="o.company_id.country_id.vat_label" id="inv_tax_id_label" />
+                                            <t t-else="">TIN</t>: <span t-field="o.partner_id.vat" />
+                                            <br />
+                                        </div>
+                                        <t>Contact</t>:
+                                        <span t-if="o.partner_id.mobile" t-field="o.partner_id.mobile" /> <span t-if="o.partner_id.phone" t-field="o.partner_id.phone" />
+                                    </div>
+                                    <div class="right_div_6">
+                                        <!-- <t t-if="o.partner_shipping_id and (o.partner_shipping_id != o.partner_id)"> -->
+                                        <div groups="sale.group_delivery_invoice_address">
+                                            <strong>Shipping Address:</strong>
+                                            <div t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                                        </div>
+                                        <!-- </t> -->
+                                        <br />
+                                        <br />
+                                        <t t-if="o.partner_id.other_informations">
+                                            <div>
+                                                <strong>Other Information</strong>
+                                                <p>
+                                                    <span t-esc="o.partner_id.other_informations"></span>
+                                                </p>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                                <br class="clearfloat" />
+                                <br class="clearfloat" />
+                                <div class="oe_structure" />
+                                <h2>
+                                    <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</span>
+                                    <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
+                                    <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+                                    <span t-if="o.move_type == 'out_refund'">Credit Note</span>
+                                    <span t-if="o.move_type == 'in_refund'">Vendor Credit Note</span>
+                                    <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>
+                                    <span t-if="o.name != '/'" t-field="o.name" />
+                                </h2>
+                                <div class="main_div">
+                                    <div class="left_div_1">
+                                        <div class="col-auto mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
+                                            <strong>Invoice Date:</strong>
+                                            <p class="m-0" t-field="o.invoice_date" />
+                                        </div>
+                                    </div>
+                                    <div class="left_div_2">
+                                        <div class="col-auto mw-100 mb-2" t-if="o.invoice_date_due and o.move_type == 'out_invoice' and o.state == 'posted'" name="due_date">
+                                            <strong>Due Date:</strong>
+                                            <p class="m-0" t-field="o.invoice_date_due" />
+                                        </div>
+                                    </div>
+                                    <div class="left_div_3">
+                                        <div class="col-auto mw-100 mb-2" t-if="o.invoice_origin" name="origin">
+                                            <strong>Source:</strong>
+                                            <p class="m-0" t-field="o.invoice_origin" />
+                                        </div>
+                                    </div>
+                                    <div class="left_div_4">
+                                        <div class="col-auto mw-100 mb-2" t-if="o.partner_id.ref" name="customer_code">
+                                            <strong>Customer Code:</strong>
+                                            <p class="m-0" t-field="o.partner_id.ref" />
+                                        </div>
+                                    </div>
+                                    <div class="left_div_5">
+                                        <div t-if="o.user_id.name">
+                                            <strong>Salesperson:</strong>
+                                            <p class="m-0" t-field="o.user_id" />
+                                        </div>
+                                    </div>
+                                    <div class="left_div_6">
+                                        <div class="col-auto mw-100 mb-2" t-if="o.ref" name="reference">
+                                            <strong>Reference:</strong>
+                                            <p class="m-0" t-field="o.ref" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br class="clearfloat" />
+                                <br class="clearfloat" />
+                                <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
+                                <table width="100%">
+                                    <thead>
+                                        <tr>
+                                            <t t-set="colspan" t-value="6" />
+                                            <th name="th_description" class="text-left"><span>Description</span></th>
+                                            <!-- TODO: remove in master -->
+                                            <th name="th_source" class="d-none text-left" t-if="0"><span>Source Document</span></th>
+                                            <th name="th_quantity" class="text-right"><span>Quantity</span></th>
+                                            <th name="th_priceunit" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Unit Price</span></th>
+                                            <th name="th_price_unit" t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                                <span>Disc.%</span>
+                                                <!-- TODO: remove in master -->
+                                                <t t-set="colspan" t-value="colspan+1" />
+                                            </th>
+                                            <th name="th_taxes" t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Taxes</span></th>
+                                            <th name="th_subtotal" class="text-right">
+                                                <span >Amount</span>
+                                                <!-- <span >Total Price</span> -->
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="invoice_tbody">
+                                        <t t-set="current_subtotal" t-value="0" />
+                                        <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)" />
+                                        <t t-foreach="lines" t-as="line">
+                                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded" />
+                                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included" />
+                                            <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                                <t name="account_invoice_line_accountable">
+                                                    <td name="account_invoice_line_name"><span t-field="line.name" t-options="{'widget': 'text'}" /></td>
+                                                    <td class="text-right">
+                                                        <span t-field="line.quantity"  t-options='{"widget": "float", "precision": 2}'/>
+                                                        <span t-field="line.product_uom_id" groups="uom.group_uom" />
+                                                    </td>
+                                                    <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                                        <span class="text-nowrap" t-field="line.price_unit" />
+                                                    </td>
+                                                    <td t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                                        <span class="text-nowrap" t-field="line.discount" />
+                                                    </td>
+                                                    <td t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                                        <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids))" id="line_tax_ids" />
+                                                    </td>
+                                                    <td class="text-right o_price_total" >
+                                                        <span class="text-nowrap" t-field="line.price_subtotal"  />
+                                                        <!-- <span class="text-nowrap" t-field="line.price_total"  /> -->
+                                                    </td>
+                                                </t>
+                                                <t t-if="line.display_type == 'line_section'">
+                                                    <td colspan="99">
+                                                        <span>Section:</span>
+                                                        <span t-field="line.name" t-options="{'widget': 'text'}" />
+                                                    </td>
+                                                    <t t-set="current_section" t-value="line" />
+                                                    <t t-set="current_subtotal" t-value="0" />
+                                                </t>
+                                                <t t-if="line.display_type == 'line_note'">
+                                                    <td colspan="99">
+                                                        <span>Note:</span>
+                                                        <span t-field="line.name" t-options="{'widget': 'text'}" />
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                            <t t-if="current_section and (line_last or lines[line_index+1].display_type == 'line_section')">
+                                                <tr class="is-subtotal text-right">
+                                                    <td colspan="99" style="text-align:right">
+                                                        <strong class="mr16">Subtotal</strong>
+                                                        <span t-esc="current_subtotal" t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <br class="clearfloat" />
+                                <div class="clearfix">
+                                    <div id="right-elements" t-attf-class="#{'col-5' if report_type != 'html' else 'col-12 col-md-5'} ms-5 d-inline-block float-end">
+                                        <div id="total" class="clearfix row">
+                                            <div class="ms-auto">
+                                                <table class="table table-sm table-borderless avoid-page-break-inside">
+                                                    <!--Tax totals-->
+                                                    <t t-set="tax_totals" t-value="o.tax_totals" />
+                                                    <t t-call="account.document_tax_totals" />
+                                                    <!--Payments-->
+                                                    <!-- <t t-if="print_with_payments"> -->
+                                                        <t t-if="o.payment_state != 'invoicing_legacy'">
+                                                            <t t-set="payments_vals" t-value="o.sudo().invoice_payments_widget and o.sudo().invoice_payments_widget['content'] or []" />
+                                                            <t t-foreach="payments_vals" t-as="payment_vals">
+                                                                <tr t-if="payment_vals['is_exchange'] == 0">
+                                                                    <td>
+                                                                        <i class="oe_form_field text-end oe_payment_label">Paid on <t t-out="payment_vals['date']" t-options='{"widget": "date"}'>2021-09-19</t></i>
+                                                                    </td>
+                                                                    <td class="text-end">
+                                                                        <span t-out="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'>20.00</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </t>
+                                                            <t t-if="len(payments_vals) > 0">
+                                                                <tr class="border-black fw-bold">
+                                                                    <td>Amount Due</td>
+                                                                    <td class="text-end">
+                                                                        <span t-field="o.amount_residual">11.05</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </t>
+                                                        </t>
+                                                    <!-- </t> -->
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="text-end lh-sm" t-if="o.company_id.display_invoice_amount_total_words">
+                                                Total amount in words: <br />
+                                                <small class="text-muted lh-sm"><span t-field="o.amount_total_words">Thirty one dollar and Five cents</span></small>
+                                            </p>
+                                        </div>
+                                        <t t-call="account.document_tax_totals_company_currency_template" />
+                                    </div>
+                                </div>
+                                <br class="clearfloat" />
+                                <br class="clearfloat" />
+                                <p t-if="o.move_type in ('out_invoice', 'in_refund')" style="font-size:16px">
+                                    Please use the following communication for your payment : <b><span t-field="o.payment_reference" /></b>
+                                </p>
+                                <div class="term">
+                                    <p>
+                                        <span>1.This invoice should be settled within due date as mentioned above on this invoice.</span>
+                                    </p>
+                                    <p>
+                                        <span>2. A charge of 0.5% per day will be levied on payments received past the due date.</span>
+                                    </p>
+                                    <!-- <p>
+                                        <span>Any discrepancies or disputes in this invoice should be notified within three (3)</span>
+                                    </p> -->
+                                    <p>
+                                        <span>3. Any discrepancies or disputes in this invoice should be notified within three (3) days of receipt of after which the invoice will be deemed true and accurate.</span>
+                                    </p>
+                                    <p>
+                                        <span>4. Cheques should be made payable to Heavy Dockyard Maldives Pvt. Ltd and should be marked “A/C Payee Only”.</span>
+                                    </p>
+                                    <p>
+                                        <span>5. Payment made directly to bank account should be made to: A/C #7701170482001 Name: Heavy Dockyard Maldives Pvt. Ltd Bank: BANK OF MALDIVES PLC</span>
+                                    </p>
+                                    <!-- <p t-if="o.narration" name="comment" style="font-size:16px">
+                                        <span t-field="o.narration" />
+                                    </p> -->
+                                </div>
+                                <br class="clearfloat" />
+                                <p t-if="o.invoice_payment_term_id" name="payment_term" style="font-size:16px">
+                                    <span t-field="o.invoice_payment_term_id.note" />
+                                </p>
+                                <p t-if="o.fiscal_position_id.note" name="note" style="font-size:16px">
+                                    <span t-field="o.fiscal_position_id.note" />
+                                </p>
+                                <div id="qrcode" t-if="(o.company_id.qr_code) and (o.invoice_partner_bank_id.acc_number != False)">
+                                    <p t-if="(o.invoice_partner_bank_id.qr_code_valid)" style="font-size:16px">
+                                        <strong class="text-center">Scan me with your banking app.</strong><br /><br />
+                                        <img class="border border-dark rounded" t-att-src="o.invoice_partner_bank_id.build_qr_code_url(o.amount_residual, o.invoice_payment_ref or o.ref or o.name)" />
+                                    </p>
+                                    <p t-if="(o.invoice_partner_bank_id.qr_code_valid == False)" style="font-size:16px">
+                                        <strong class="text-center">The SEPA QR Code informations are not set correctly.</strong><br />
+                                    </p>
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                <div class="main_div">
+                                    <div class="left_div_9">
+                                        <p>
+                                            <span>Prepared By</span>
+                                        </p>
+                                    </div>
+                                    <div class="right_div_9">
+                                        <p>
+                                            <span>Checked By</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <!-- </t> -->
+            </t>
+        </template>
+    </data>
+</odoo>

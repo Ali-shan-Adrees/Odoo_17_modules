@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="dollar_purchase_report.dollar_purchase_report">
+			<t t-call="web.html_container">
+				<t t-call="web.basic_layout">
+					<t t-foreach="docs" t-as="o">
+						<div class="page">
+							<style type="text/css">
+							.main_wraper {
+								width: 100% !important;
+							}
+
+							.main_div {
+								<!-- width: 100%; -->
+							}
+
+							.clear_float {
+								clear: both;
+								float: none;
+								width: 1px;
+								height: 1px;
+								display: block;
+							}
+
+							.solid {
+								font-weight: bold;
+
+							}
+
+							.liquid {
+								float: right;
+								width: 50%;
+							}
+
+							p {
+								margin: 5px;
+								font-size: 18px;
+							}
+							</style>
+							<div class="page" style="width:100%;">
+								<div class="main_wraper">
+									<div class="main_div">
+										<b style="font-size: 30px;">
+											<span t-if="o.company_id" t-esc="o.company_id.name.upper()" />
+										</b>
+										<h4>
+											<b>Money Exchange:</b>
+											<span style="text-align:center" />
+										</h4>
+										<p t-if="o.name">
+											<span class="solid">Reference:</span>
+											<span class="liquid" t-if="o.name" t-esc="o.name" />
+										</p>
+										<p t-if="o.date">
+											<span class="solid">Date:</span>
+											<span class="liquid" t-esc="o.date.strftime('%d/%m/%y')" /> </p>
+										<div style="font-size:15px;">
+											<t t-if="o.currency_2">
+												<p>
+													<span class="solid">Currency:</span>
+													<span class="liquid" t-esc="o.currency_2.name" />
+												</p>
+											</t>
+											<t t-if="o.journal_id_to">
+												<p>
+													<span class="solid">Deposit To:</span>
+													<span class="liquid" t-esc="o.journal_id_to.name" />
+												</p>
+											</t>
+											<t t-if="o.total_amount">
+												<p>
+													<span class="solid">Purchase Amt:</span>
+													<span class="liquid">
+														<t t-esc="o.currency_2.symbol" />
+														<t t-esc="'{:,.2f}'.format(o.total_amount or 0.0)" />
+													</span>
+												</p>
+											</t>
+											<t t-if="o.journal_id">
+												<p>
+													<span class="solid">From:</span>
+													<span class="liquid" t-esc="o.journal_id.name" />
+												</p>
+											</t>
+											<t t-if="o.journal_id_expense">
+												<p>
+													<span class="solid">Exp. To:</span>
+													<span class="liquid" t-esc="o.journal_id_expense.name" />
+												</p>
+											</t>
+											<t t-if="o.manual_rate">
+												<p>
+													<span class="solid">Exchange:</span>
+													<span class="liquid">
+														<t t-esc="'{:,.2f}'.format(o.manual_rate or 0.0)" />
+													</span>
+												</p>
+											</t>
+											<t t-if="o.diff_rate">
+												<p>
+													<span class="solid">Diff Rate:</span>
+													<span class="liquid">
+														<t t-esc="'{:,.2f}'.format(o.diff_rate or 0.0)" /> MVR
+													</span>
+												</p>
+											</t>
+											<t t-if="o.total_amount_base_currency">
+												<p>
+													<span class="solid">Total Amt MVR:</span>
+													<span class="liquid" t-esc="'%.2f' % o.total_amount_base_currency" />
+												</p>
+											</t>
+											<t t-if="o.ref">
+												<p>
+													<span class="solid">Memo:</span>
+													<span class="liquid" t-esc="o.ref" />
+												</p>
+											</t>
+										</div>
+									</div>
+									<br class="clear_float" />
+									<br />
+									<p width="100%">
+										<span class="solid">Customer Sign : _____________________________</span>
+									</p>
+									<br />
+									<p style="text-align: left;">Thank you. Please visit us again.
+										Customers are requested to check and
+										examine all currencies before leaving the
+										counter. Please note that all transactions are final.</p>
+								</div><br />
+								<p style="text-align:center;">Hotel Copy</p>
+								<div style="page-break-after: always;"></div>
+								<div class="main_wraper">
+									<div class="main_div">
+										<b style="font-size: 30px;">
+											<span t-if="o.company_id" t-esc="o.company_id.name.upper()" />
+										</b>
+										<h4>
+											<b>Money Exchange Receipt:</b>
+											<span style="text-align:center" />
+										</h4>
+										<p t-if="o.name">
+											<span class="solid">Reference:</span>
+											<span class="liquid" t-if="o.name" t-esc="o.name" />
+										</p>
+										<p t-if="o.date">
+											<span class="solid">Date:</span>
+											<span class="liquid" t-esc="o.date.strftime('%d/%m/%y')" />
+										</p>
+										<t t-if="o.currency_2">
+											<p>
+												<span class="solid">Currency:</span>
+												<span class="liquid" t-esc="o.currency_2.name" />
+											</p>
+										</t>
+										<t t-if="o.total_amount">
+											<p>
+												<span class="solid">Exchange Amt:</span>
+												<span class="liquid">
+													<t t-esc="o.currency_2.symbol" />
+													<t t-esc="'{:,.2f}'.format(o.total_amount or 0.0)" />
+												</span>
+											</p>
+										</t>
+										<t t-if="o.manual_rate">
+											<p>
+												<span class="solid">Exchange:</span>
+												<span class="liquid">
+													<t t-esc="'{:,.2f}'.format(o.manual_rate or 0.0)" />
+												</span>
+											</p>
+										</t>
+										<t t-if="o.total_amount_base_currency">
+											<p>
+												<span class="solid">Total Amt MVR:</span>
+												<span class="liquid" t-esc="'%.2f' % o.total_amount_base_currency" />
+											</p>
+										</t>
+										<t t-if="o.ref">
+											<p>
+												<span class="solid">Memo:</span>
+												<span class="liquid" t-esc="o.ref" />
+											</p>
+										</t>
+									</div>
+									<br class="clear_float" />
+									<br class="clear_float" />
+									<br />
+									<div style="text-align:center;">**************************</div>
+									<br />
+									<p style="text-align: left;">Thank you. Please visit us again.
+										Customers are requested to check and
+										examine all currencies before leaving the
+										counter. Please note that all transactions are final.</p>
+										<br/>
+										<br/>
+									<!-- <footer style="text-align:center;">Customer Copy</footer> -->
+								</div>
+								<div style="clear:both;" />
+							</div>
+						</div>
+						`
+						<p style="page-break-before:always !important;" />
+					</t>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>
