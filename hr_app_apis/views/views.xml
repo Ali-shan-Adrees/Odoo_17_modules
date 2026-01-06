@@ -1,0 +1,38 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_hr_app_apis_tree" model="ir.ui.view">
+        <field name="name">hr.app.apis.tree</field>
+        <field name="model">hr.app.apis</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="token" />
+            </tree>
+        </field>
+    </record>
+    <!-- Form View -->
+    <record id="view_hr_app_apis_form" model="ir.ui.view">
+        <field name="name">hr.app.apis.form</field>
+        <field name="model">hr.app.apis</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name" />
+                    </group>
+                    <group>
+                        <field name="token" />
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- Action -->
+    <record id="action_hr_app_apis" model="ir.actions.act_window">
+        <field name="name">HR App APIs</field>
+        <field name="res_model">hr.app.apis</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- Menu -->
+    <menuitem id="menu_hr_app_apis" name="HR Api Configuration" parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root" action="action_hr_app_apis" sequence="100" groups="hr_payroll.group_hr_payroll_employee_manager" />
+</odoo>
