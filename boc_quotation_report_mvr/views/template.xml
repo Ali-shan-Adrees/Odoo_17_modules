@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<!-- Paper Format -->
+		<record id="boc_quotation_report_mvr_pap" model="report.paperformat">
+			<field name="name">BOC Quotation MVR Report</field>
+			<field name="default" eval="False"/>
+			<field name="format">A4</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">45</field>
+			<field name="margin_bottom">5</field>
+			<field name="margin_left">5</field>
+			<field name="margin_right">5</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">40</field>
+			<field name="dpi">90</field>
+		</record>
+
+		<!-- Report Action -->
+		<record id="boc_quotation_report_mvr_ext" model="ir.actions.report">
+			<field name="name">BOC Quotation/Order MVR Report</field>
+			<field name="model">sale.order</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">boc_quotation_report_mvr.boc_quotation_report_mvr</field>
+			<field name="report_file">boc_quotation_report_mvr.boc_quotation_report_mvr</field>
+			<field name="print_report_name">'Quotation MVR - %s' % (object.name)</field>
+			<field name="binding_model_id" ref="sale.model_sale_order"/>
+			<field name="binding_type">report</field>
+			<field name="paperformat_id" ref="boc_quotation_report_mvr_pap"/>
+		</record>
+
+		 <template id="boc_quotation_external_layout_mvr">
+			<div class="header">
+				<style>
+					.main_wrapper_q {
+						width: 100%;
+					}
+					.main_div_q {
+						width: 100%;
+					}
+					.left_div_q {
+						float: left;
+						width: 90%;
+						text-align: center;
+					}
+					.right_div_q {
+						float: left;
+						width: 10%;
+					}
+					.table_q {
+						border: 1px solid black;
+						border-collapse: collapse;
+						width: 100%;
+					}
+				</style>
+				<div class="main_div_q">
+					<div class="left_div_q">
+						<img t-if="o.company_id.logo" 
+							 style="width:320px; height:70px" 
+							 t-attf-src="data:image/*;base64,{{o.company_id.logo}}"/>
+						<t t-if="o.company_id.name">
+							<h5><strong><span t-esc="o.company_id.name"/></strong></h5>
+						</t>
+						<t t-if="o.company_id.street">
+							<span t-esc="o.company_id.street"/><br/>
+						</t>
+						<t t-if="o.company_id.street2">
+							<span t-esc="o.company_id.street2"/><br/>
+						</t>
+						<t t-if="o.company_id.state_id.name">
+							<span t-esc="o.company_id.state_id.name"/><br/>
+						</t>
+						<t t-if="o.company_id.zip">
+							<span t-esc="o.company_id.zip"/><br/>
+						</t>
+						<t t-if="o.company_id.country_id.name">
+							<span t-esc="o.company_id.country_id.name"/><br/>
+						</t>
+						<t t-if="o.company_id.mobile">
+							<span>Mobile:</span>
+							<span t-esc="o.company_id.mobile"/><br/>
+						</t>
+						<t t-if="o.company_id.phone">
+							<span>Phone:</span>
+							<span t-esc="o.company_id.phone"/>
+						</t>
+					</div>
+					<div class="right_div_q">
+						<img style="width:110px;" src="/boc_quotation_report_mvr/static/src/image/icon.png"/>
+					</div>
+					<br style="clear: both;"/>
+				</div>
+			</div>
+
+			<br style="clear: both; height: 40px;"/>
+
+			<div class="article o_report_layout_background">
+				<t t-raw="0"/>
+			</div>
+		</template>
+
+	</data>
+</odoo>

@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="boc_invoice_report_pap" model="report.paperformat">
+            <field name="name">Boc Invoice Report</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="boc_invoice_report_ext" model="ir.actions.report">
+            <field name="name">Boc Invoice USD/ Credit Note Report</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">boc_invoice_report.boc_invoice_report</field>
+            <field name="report_file">boc_invoice_report.boc_invoice_report</field>
+            <field name="print_report_name">'Invoice Mvr Report - %s' %(object.name)</field>
+            <field name="binding_model_id" ref="account.model_account_move" />
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="boc_invoice_report_pap" />
+            <field name="domain" eval="[('move_type', '!=', 'entry'),('company_id', '=', 2)]" />
+        </record>
+        <template id="cd_credit_note_external_layout">
+            <t t-if="o.move_type == 'out_refund'">
+                <div class="header">
+                    <style>
+                    .table {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                    }
+
+                    .center_div_cn {
+                        width: 20%;
+                        float: left;
+                    }
+
+                    .main_wraper_cn {
+
+                        width: 100%;
+
+                    }
+
+                    .main_div_cn {
+                        width: 100%;
+
+                    }
+
+                    .left_div_cn {
+                        width: 40%;
+                        float: left;
+                    }
+
+                    .center_div_cn {
+                        width: 20%;
+                        float: left;
+                    }
+
+                    .right_div_cn {
+                        float: right;
+                        width: 30%;
+                    }
+
+                    .table_cn {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+
+                    .table_new_cn {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                    }
+
+                    .table_main_cn {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+
+                    }
+
+                    .table_total_cn {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+                    </style>
+                    <div class="main_div_cn">
+                        <div class="left_div_cn" style="margin_top:-6px;">
+                            <t t-if="o.company_id.name">
+                                <h5><strong><span t-esc="o.company_id.name" /></strong></h5>
+                            </t>
+                            <t t-if="o.company_id.street">
+                                <span t-esc="o.company_id.street" />
+                                <br />
+                            </t>
+                            <t t-if="o.company_id.street2">
+                                <span t-esc="o.company_id.street2" />
+                                <br />
+                            </t>
+                            <t t-if="o.company_id.state_id.name">
+                                <span t-esc="o.company_id.state_id.name" />
+                                <br />
+                            </t>
+                            <t t-if="o.company_id.zip">
+                                <span t-esc="o.company_id.zip" />
+                                <br />
+                            </t>
+                            <t t-if="o.company_id.country_id.name">
+                                <span t-esc="o.company_id.country_id.name" />
+                                <br />
+                            </t>
+                            <t t-if="o.company_id.mobile">
+                                <span style="font-weight:bold;">Mobile:</span>
+                                <span t-esc="o.company_id.mobile" />
+                                <br />
+                            </t>
+                            <t t-if="o.company_id.phone">
+                                <span style="font-weight:bold;">Phone:</span>
+                                <span t-esc="o.company_id.phone" />
+                            </t>
+                        </div>
+                        <div class="center_div_cn" style="border: 1px solid black;text-align: center; ">
+                            <strong style="font-size: 18px;">Credit Note</strong>
+                        </div>
+                        <div class="right_div_cn">
+                            <table class="table text-center">
+                                <tr>
+                                    <td style="padding: 2px;"><strong>Date</strong><br /><span t-esc="o.invoice_date" /></td>
+                                    <td style="padding: 2px;border-left: 1px solid black;"><strong>Page</strong><br />
+                                        <span class="page" />
+                                    </td>
+                                </tr>
+                                <tr style="padding: 2px;border-right: none !important;">
+                                    <td colspan="2" style="padding: 2px;border-right:none !important;"><strong>Credit Note Number </strong><br /><span t-esc="o.name" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br style="clear:both; float:none;border:none; width:0;height:0;" />
+                <div class="article o_report_layout_background">
+                    <t t-raw="0" />
+                </div>
+            </t>
+            <t t-if="o.move_type == 'out_invoice'">
+                <div class="header">
+                    <style>
+                    .main_wraper {
+                        width: 100%;
+
+                    }
+
+                    .main_div_a {
+                        width: 100%;
+
+                    }
+
+                    .left_div_a {
+                        float: left;
+                        width: 90%;
+                    }
+
+                    .right_div_a {
+                        float: left;
+                        width: 10%;
+                    }
+                    </style>
+                    <div class="main_div_a">
+                        <div class="left_div_a" style="text-align:center;">
+                            <img t-if="o.company_id.logo" style="width:320px; height:70px" t-attf-src="data:image/*;base64,{{o.company_id.logo}}" />
+                            <t t-if="o.company_id.name">
+                                <h5><strong><span t-esc="o.company_id.name" /></strong></h5>
+                            </t>
+                            <t t-if="o.company_id.street">
+                                <span t-esc="o.company_id.street" />
+                                <br />
+                            </t>
+                            <t t-if="o.company_id.street2">
+                                <span t-esc="o.company_id.street2" />
+                                <br />
+                            </t>
+                            <t t-if="o.company_id.state_id.name">
+                                <span t-esc="o.company_id.state_id.name" />
+                                <br />
+                            </t>
+                            <t t-if="o.company_id.zip">
+                                <span t-esc="o.company_id.zip" />
+                                <br />
+                            </t>
+                            <t t-if="o.company_id.country_id.name">
+                                <span t-esc="o.company_id.country_id.name" />
+                                <br />
+                            </t>
+                            <t t-if="o.company_id.mobile">
+                                <span>Mobile</span>
+                                <span t-esc="o.company_id.mobile" />
+                                <br />
+                            </t>
+                            <t t-if="o.company_id.phone">
+                                <span>Phone</span>
+                                <span t-esc="o.company_id.phone" />
+                            </t>
+                        </div>
+                        <div class="right_div_a">
+                            <img style="width:110px;" src="/boc_invoice_report/static/src/image/icon.png" />
+                        </div>
+                        <br style="clear:both; float:none;border:none; width:0;height:0;" />
+                    </div>
+                </div>
+                <br style="clear:both; float:none;border:none; width:0;height:0;" />
+                <br />
+                <br />
+                <div class="article o_report_layout_background">
+                    <br />
+                    <br />
+                    <br />
+                    <t t-raw="0" />
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

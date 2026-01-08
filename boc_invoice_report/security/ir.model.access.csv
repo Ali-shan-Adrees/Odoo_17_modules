@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_boc_invoice_report_boc_invoice_report,boc_invoice_report_boc_invoice_report,model_boc_invoice_report_boc_invoice_report,base.group_user,1,1,1,1
+access_credit_note_mvr_report_credit_note_mvr_report,credit_note_mvr_report_credit_note_mvr_report,model_credit_note_mvr_report_credit_note_mvr_report,base.group_user,1,1,1,1

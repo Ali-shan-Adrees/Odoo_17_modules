@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="boc_invoice_report_mvr">
+            <t t-call="web.html_container">
+                <t t-call="boc_invoice_report_mvr.cd_credit_note_external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-set="o" t-value="o.sudo()"></t>
+                        <div class="page">
+                            <t t-if="o.move_type == 'out_refund'">
+                                <style>
+                                .table {
+                                    border: 1px solid black;
+                                    border-collapse: collapse;
+                                }
+
+                                .center_div_cn {
+                                    width: 20%;
+                                    float: left;
+                                }
+
+                                .main_wraper_cn {
+                                    width: 100%;
+                                }
+
+                                .main_div_cn {
+                                    width: 100%;
+                                }
+
+                                .left_div_cn {
+                                    width: 40%;
+                                    float: left;
+                                }
+
+                                .center_div_cn {
+                                    width: 20%;
+                                    float: left;
+                                }
+
+                                .right_div_cn {
+                                    float: right;
+                                    width: 30%;
+                                }
+
+                                .table_cn {
+                                    border: 1px solid black;
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                }
+
+                                .table_new_cn {
+                                    border: 1px solid black;
+                                    border-collapse: collapse;
+                                }
+
+                                .table_main_cn,
+                                tr {
+                                    border: 1px solid black;
+                                    border-collapse: collapse;
+                                }
+
+                                .table_main_cn th {
+                                    vertical-align: middle;
+                                    text-align: center;
+                                    padding: 2px 5px;
+                                }
+
+                                .table_main_cn td {
+                                    font-size: 13px;
+                                    vertical-align: baseline;
+                                    text-align: center;
+                                    padding: 2px 5px;
+                                    border: none;
+                                    border-right: 1px solid #000;
+                                }
+
+                                .table_main_cn tbody tr {
+                                    border: none;
+                                }
+
+                                .table_total_cn {
+                                    border: 1px solid black;
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                }
+                                </style>
+                                <div class="main_wraper_cn">
+                                    <br style="clear:both; float:none;border:none; width:0;height:0;" />
+                                    <table class="table_cn" style="width: 100%;height:130px;word-break:break-word;">
+                                        <tr style="vertical-align:baseline;">
+                                            <td style="width:15%;padding:10px 10px;border-right:none !important;"><strong> <span>Credit the account of:</span></strong> <br /></td>
+                                            <td style="padding:10px 10px;border-left: none !important; padding-bottom: 5px;">
+                                                <span t-esc="o.partner_id.name">
+                                                </span>
+                                                <span t-esc="o.partner_id.street" />
+                                                <span t-esc="o.partner_id.street2" />
+                                                <span t-esc="o.partner_id.state_id.name" />
+                                                <span t-esc="o.partner_id.zip" />
+                                                <span t-esc="o.partner_id.country_id.name" />
+                                                <span t-esc="o.partner_id.street2" /><br />
+                                                TIN:<span t-esc="o.partner_id.vat" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                    <table class="table_new_cn" width="100%" style="margin-top: 2px; ">
+                                        <thead style="border: none;">
+                                            <t t-foreach="related_data" t-as="data">
+                                                <tr style="border: none;">
+                                                    <th style="border-right:1px solid #000 !important;border: none; text-align:center; padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px; " class="cd">
+                                                        Invoice Number
+                                                    </th>
+                                                    <th style="border-right:1px solid #000 !important;border: none;text-align:center;padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px;">
+                                                        Invoice Date
+                                                    </th>
+                                                    <th style="border-right:1px solid #000 !important;border: none;text-align:center;padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px; ">
+                                                        Customer No.
+                                                    </th>
+                                                    <th style="border-right:1px solid #000 !important;border: none;text-align:center;padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px;">
+                                                        Salesperson
+                                                    </th>
+                                                    <th style="border-right:1px solid #000 !important;border: none;text-align:center;padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px;">Order Number
+                                                    </th>
+                                                    <th style="border-right:1px solid #000 !important;border: none;text-align:center;padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px;">Order Date
+                                                    </th>
+                                                    <th style="border-right:1px solid #000 !important;border: none;text-align:center;padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px;">Customer PO</th>
+                                                </tr>
+                                            </t>
+                                        </thead>
+                                        <tbody style="border: none;">
+                                            <tr style="border-top: none !important">
+                                                <td style="border-right:1px solid #000 !important;border: none;text-align:center;"><span t-esc="data['related_invoice']" /></td>
+                                                <td style="border-right:1px solid #000 !important;border: none;text-align:center; border-left: 1px solid black;"> <span t-if="data.get('related_invoice')" t-esc="invoice_date" />
+                                                    <span t-if="not data.get('related_invoice')"></span></td>
+                                                <td style="border-right:1px solid #000 !important;border: none;text-align:center;"><span t-esc="o.partner_id.customer_rank" /></td>
+                                                <td style="border-right:1px solid #000 !important;border: none;text-align:center;"><span t-esc="o.invoice_user_id.name" /></td>
+                                                <td style="border-right:1px solid #000 !important;border: none;text-align:center;"> <span t-esc="data['sale_order']" /></td>
+                                                <td style="border-right:1px solid #000 !important;border: none;text-align:center;"> <span t-esc="data.get('order_date') and data['order_date'] or ''" /></td>
+                                                <td style="border-right:1px solid #000 !important;border: none;text-align:center;"><span t-esc="o.customer_po" /></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br />
+                                    <table class="table_main_cn" width="100%">
+                                        <thead>
+                                            <tr style="border: 1px solid black;">
+                                                <th style="text-align:center; border-left: 1px solid black;padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px;">
+                                                    Qty. Shp
+                                                </th>
+                                                <th style="text-align:center; border-left: 1px solid black;padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px;">
+                                                    Crd.Type
+                                                </th>
+                                                <th style="text-align:center; border-left: 1px solid black;padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px;">
+                                                    Qty. Ret
+                                                </th>
+                                                <th style="text-align:center; border-left: 1px solid black;padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px;">
+                                                    Item Number
+                                                </th>
+                                                <th style="width:25%;text-align:center; border-left: 1px solid black;padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px;">
+                                                    Description
+                                                </th>
+                                                <th style="text-align:center; border-left: 1px solid black;">Unit Price</th>
+                                                <th style="text-align:center; border-left: 1px solid black;padding-right:5px;padding-left:5px;padding-top:5px; padding-bottom:5px;">
+                                                    UOM
+                                                </th>
+                                                <th style="text-align:center; border-left: 1px solid black; padding-right:5px; padding-left:5px; padding-top:5px; padding-bottom:5px;">Extended Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-set="total_lines" t-value="len(o.invoice_line_ids)" />
+                                            <t t-foreach="o.invoice_line_ids" t-as="line">
+                                                <t t-set="mvr_line" t-value="line_converted_values[o.id][line.id]" />
+                                                <tr>
+                                                    <td style="text-align: right;">
+                                                        <span t-esc="data['product_quantities'].get(line.product_id.id, 0)" />
+                                                    </td>
+                                                    <td>
+                                                        Ret.
+                                                    </td>
+                                                    <td style="text-align: right;">
+                                                        <span t-field="line.quantity" />
+                                                    </td>
+                                                    <td style="text-align: right;">
+                                                        <span t-esc="line.product_id.default_code" />
+                                                    </td>
+                                                    <td style="text-align:left;">
+                                                        <span t-esc="line.product_id.name" />
+                                                    </td>
+                                                    <td style="text-align: right;">
+                                                        <span t-esc="float(mvr_line['price_unit_mvr'])" />
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="line.product_uom_id.name" />
+                                                    </td>
+                                                    <td style="text-align: right;">
+                                                        <span t-esc="float(mvr_line['price_subtotal_mvr'])" />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-foreach="range(24-total_lines)" t-as="line">
+                                                <tr>
+                                                    <td><span style="color:#fff;">-</span></td>
+                                                    <td><span style="color:#fff;">-</span></td>
+                                                    <td><span style="color:#fff;">-</span></td>
+                                                    <td><span style="color:#fff;">-</span></td>
+                                                    <td><span style="color:#fff;">-</span></td>
+                                                    <td><span style="color:#fff;">-</span></td>
+                                                    <td><span style="color:#fff;">-</span></td>
+                                                    <td><span style="color:#fff;">-</span></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                    <t t-if="(18-total_lines) &lt;= 0 and (18-total_lines) &gt;= -15">
+                                        <p t-attf-style="page-break-inside: avoid !important;page-break-after: always !important;" />
+                                    </t>
+                                    <table class="table_total_cn" style="width:100%;">
+                                        <tr style="border:none;">
+                                            <td style="padding:10px;border:none;width:41%"><b>Comments:</b></td>
+                                            <td style="padding:10px;border:none;border-right:1px solid #000;width:20%"><b>Tax summary:</b></td>
+                                            <td style="padding:10px;border:none;border-right:1px solid #000;"><b>Subtotal</b></td>
+                                            <td style="text-align:right;padding:10px;border:none;border-right:1px solid #000;">
+                                                <b><span t-esc="float(converted_values[o.id]['amount_untaxed_mvr'])" /> </b>
+                                            </td>
+                                        </tr>
+                                        <tr style="border:none;">
+                                            <td style="padding:10px;border:none;width:41%">
+                                                <span t-field="o.ref"></span>
+                                            </td>
+                                            <td style="padding:10px;border:none;border-right:1px solid #000;width:30%">
+                                                <t t-set="tax_totals" t-value="o.tax_totals" />
+                                                <t t-if="tax_totals.get('groups_by_subtotal') and tax_totals['groups_by_subtotal'].get('Untaxed Amount')">
+                                                    <t t-foreach="tax_totals['groups_by_subtotal']['Untaxed Amount']" t-as="amount_by_group">
+                                                        <t t-if="amount_by_group['tax_group_amount']">
+                                                            <div>
+                                                                <span style="float:left;" t-out="amount_by_group['tax_group_name']" />
+                                                                <span style="float:right;" class="o_price_total">
+                                                                    <span class="text-nowrap" t-out="float(amount_by_group['tax_group_amount'])" />
+                                                                </span>
+                                                            </div>
+                                                            <br class="clear_float" />
+                                                        </t>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                            <td style="width:15.5%;padding:10px;border:none;border-right:1px solid #000;"><b>Total sales tax</b></td>
+                                            <td style="text-align:right;padding:10px;border:none;border-right:1px solid #000;">
+                                                <b><span t-esc="float(converted_values[o.id]['amount_tax_mvr'])" /> </b>
+                                            </td>
+                                        </tr>
+                                        <tr style="border:none;">
+                                            <td style="padding:10px;border:none;width:41%" />
+                                            <td style="padding:10px;border:none;border-right:1px solid #000;width:30%" />
+                                            <td style="width:15.5%;padding:10px;border:1px solid #000;"><b>Total Credit MVR</b></td>
+                                            <td style="text-align:right;padding:10px;border:1px solid #000;">
+                                                <b><span t-esc="float(converted_values[o.id]['amount_total_mvr'])" /> </b>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </t>
+                            <t t-if="o.move_type == 'out_invoice'">
+                                <style>
+                                .main_wraper {
+                                    width: 100%;
+                                }
+
+                                .main_div {
+                                    width: 100%;
+                                    margin-bottom: 5px;
+                                }
+
+                                .left_div {
+                                    float: left;
+                                    width: 50%;
+                                    font-size: 13px;
+                                }
+
+                                .right_div {
+                                    width: 50%;
+                                    float: left;
+                                    font-size: 13px;
+                                }
+
+                                .left_div_1 {
+                                    height: 130px;
+                                    float: left;
+                                    width: 49.5%;
+                                    font-size: 13px;
+                                    overflow: hidden;
+                                }
+
+                                .right_div_1 {
+                                    height: 130px;
+                                    width: 50%;
+                                    float: right;
+                                    font-size: 13px;
+                                    overflow: hidden;
+                                }
+
+                                .right_div_1 table,
+                                .left_div_1 table {
+                                    height: 130px;
+                                    border-bottom: none;
+                                }
+
+                                .right_div_2 {
+                                    width: 33%;
+                                    float: left;
+                                    font-size: 13px;
+                                }
+
+                                .clear_float {
+                                    clear: both;
+                                    float: none;
+                                    height: 0px;
+                                    width: 0px;
+                                    display: block;
+                                }
+
+                                .left_div_n,
+                                .center_div_n,
+                                .right_div_n {
+                                    float: left;
+                                    font-size: 13px;
+                                    box-sizing: border-box;
+                                }
+
+                                .main_div_n {
+                                    width: 100%;
+
+                                }
+
+                                .left_div_n {
+                                    width: 30%;
+                                }
+
+                                .center_div_n {
+                                    width: 50%;
+                                    text-align: center;
+                                }
+
+                                .right_div_n {
+                                    width: 20%;
+                                }
+
+
+                                .main_div_a {
+                                    width: 100%;
+
+
+                                }
+
+                                .left_div_a {
+                                    float: left;
+                                    width: 90%;
+                                }
+
+                                .right_div_a {
+                                    float: left;
+                                    width: 10%;
+                                }
+
+                                .table-container {
+                                    display: flex;
+                                    gap: 3px;
+                                }
+
+                                .box-table {
+                                    border: 1px solid black;
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                }
+
+                                .box-table td {
+                                    padding: 0;
+                                }
+
+
+                                .box-table_div {
+                                    width: 100%;
+                                    border: 1px solid black;
+                                    border-collapse: collapse;
+                                }
+
+                                .box-table_div td {
+                                    padding: 10px;
+                                }
+
+                                .left-div {
+                                    width: 50%;
+                                    border-right: 1px solid black;
+                                }
+
+                                .right-div {
+                                    width: 50%;
+                                }
+
+                                .box-table_div td div {
+                                    margin-bottom: 5px;
+                                }
+
+                                .table {
+                                    border: 1px solid black;
+                                    border-collapse: collapse;
+                                }
+
+                                .table th {
+                                    padding: 2px 5px !important;
+                                    text-align: center !important;
+                                    font-size: 13px;
+                                }
+
+                                .table td {
+                                    padding: 2px 5px !important;
+                                    font-size: 13px;
+                                }
+
+                                .left-column {
+                                    width: 50%;
+                                    border-right: 1px solid black;
+                                }
+
+                                .right-column {
+                                    width: 50%;
+                                }
+
+                                .box-table-new {
+                                    width: 100%;
+                                    border: 1px solid black;
+                                    border-collapse: collapse;
+                                }
+
+                                .box-table-new td {
+                                    padding: 23px;
+                                }
+
+                                .box-table-new td div {
+                                    margin-bottom: 5px;
+                                }
+
+                                .footer {
+                                    width: 100%;
+                                    text-align: center;
+                                    font-size: 10px;
+                                    border-top: 1px solid #ddd;
+                                }
+                                </style>
+                                <div class="main_wraper">
+                                    <br style="clear:both; float:none;border:none; width:0;height:0;" />
+                                    <div class="main_div_n">
+                                    </div>
+                                    <div class="left_div_n">
+                                        <!-- 12175 -->
+                                        <span t-esc="o.partner_id.customer_rank" />
+                                    </div>
+                                    <div class="center_div_n">
+                                        <strong style="font-size: 16px;">1020992GST501</strong>
+                                    </div>
+                                    <div class="right_div_n" style="border: 1px solid black; padding-left: 1px; text-align: center; margin-bottom: 5px;">
+                                        <strong style="font-size: 18px;">TAX INVOICE</strong>
+                                    </div>
+                                    <br style="clear:both; float:none;border:none; width:0;height:0;" />
+                                    <div class="main_div">
+                                        <div class="left_div_1">
+                                            <table class="box-table">
+                                                <tr>
+                                                    <td style="padding-left :2px;">
+                                                        <span t-esc="o.partner_id.name" /><br />
+                                                        <span t-esc="o.partner_id.street" />
+                                                        <span t-esc="o.partner_id.street2" />
+                                                        <span t-esc="o.partner_id.state_id.name" />
+                                                        <span t-esc="o.partner_id.zip" />
+                                                        <span t-esc="o.partner_id.country_id.name" />
+                                                        TIN:<span t-esc="o.partner_id.vat" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="right_div_1">
+                                            <table class="box-table-new">
+                                                <tr>
+                                                    <td class="left-column">
+                                                        <div><strong>Purchase Order:</strong>
+                                                            <span t-esc="o.ref" />
+                                                        </div>
+                                                        <div><strong>Delivery Order Ref:</strong> <span t-esc="delivery_orders.get(o.id, 'N/A')" /></div>
+                                                        <div><strong>Terms:</strong>
+                                                            <span t-esc="o.invoice_payment_term_id.name" />
+                                                        </div>
+                                                    </td>
+                                                    <td class="right-column">
+                                                        <div><strong>Date:</strong><span t-esc="o.invoice_date">
+                                                            </span>
+                                                        </div>
+                                                        <div />
+                                                        <div><strong>Invoice No:</strong>
+                                                            <span t-esc="o.name" />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div>
+                                        <table class="m-0 table" width="100%">
+                                            <thead>
+                                                <tr style="border: 1px solid black; border-bottom : none !important;">
+                                                    <th style="text-align:left; ">
+                                                        Item Number
+                                                    </th>
+                                                    <th style="text-align:left;width:40%;">
+                                                        Description
+                                                    </th>
+                                                    <th style="text-align:left;">
+                                                        UOM
+                                                    </th>
+                                                    <th style="text-align:left; ">Qty</th>
+                                                    <th style="text-align:left; ">Unit Price</th>
+                                                    <th style="text-align:left; ">Net amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-set="total_lines" t-value="len(o.invoice_line_ids)" />
+                                                <t t-foreach="enumerate(o.invoice_line_ids, 1)" t-as="pair">
+                                                    <!-- pair[0] = index (1-based), pair[1] = line -->
+                                                    <t t-set="idx" t-value="pair[0]" />
+                                                    <t t-set="line" t-value="pair[1]" />
+                                                    <t t-set="mvr_line" t-value="line_converted_values[o.id][line.id]" />
+                                                    <tr style="border: none !important;">
+                                                        <td style="border: none !important; text-align: right;">
+                                                            <span t-esc="line.product_id.default_code" />
+                                                        </td>
+                                                        <!--  <t t-set="total_lines" t-value="len(o.invoice_line_ids)" />
+                                                <t t-foreach="o.invoice_line_ids" t-as="line">
+                                                    <t t-set="mvr_line" t-value="line_converted_values[o.id][line.id]" />
+                                                    <tr style="border: none !important;">
+                                                        <td style="border: none !important;">
+                                                            <span t-esc="line.product_id.default_code" />
+                                                        </td> -->
+                                                        <td style="border: none !important;">
+                                                            <span t-esc="line.name.replace('[%s] ' % line.product_id.default_code if line.product_id.default_code else '', '')"/>
+                                                        </td>
+                                                        <td style="border: none !important; text-align:center;">
+                                                            <span t-esc="line.product_uom_id.name" />
+                                                        </td>
+                                                        <td style="border: none !important; text-align: right;">
+                                                            <span t-esc="line.quantity" />
+                                                        </td>
+                                                        <td style="border: none !important; text-align: right;">
+                                                            <span t-esc="'{0:,.2f}'.format(float(mvr_line['price_unit_mvr']))" />
+                                                        </td>
+                                                        <td style="border: none !important; text-align: right;">
+                                                            <span t-esc="'{0:,.2f}'.format(float(mvr_line['price_subtotal_mvr']))" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if="(15-total_lines) > 0">
+                                                    <t t-foreach="range(15-total_lines)" t-as="line">
+                                                        <tr style="border: none !important;">
+                                                            <td style="border: none !important;">
+                                                                <span style="color:#fff;">-</span>
+                                                            </td>
+                                                            <td style="border: none !important;">
+                                                                <span style="color:#fff;">-</span>
+                                                            </td>
+                                                            <td style="border: none !important;">
+                                                                <span style="color:#fff;">-</span>
+                                                            </td>
+                                                            <td style="border: none !important;">
+                                                                <span style="color:#fff;">-</span>
+                                                            </td>
+                                                            <td style="border: none !important;">
+                                                                <span style="color:#fff;">-</span>
+                                                            </td>
+                                                            <td style="border: none !important;">
+                                                                <span style="color:#fff;">-</span>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                        <t t-if="(15-total_lines) &lt;= 0 and (15-total_lines) &gt;= -15">
+                                            <p t-attf-style="page-break-inside: avoid !important; page-break-after: always !important;" />
+                                            <br />
+                                            <br />
+                                            <br />
+                                        </t>
+                                        <footer>
+                                            <table class="total" width="100%" style="border: 1px solid black;">
+                                                <tr>
+                                                    <td colspan="6" style="text-align:left; vertical-align: top; border-right: 1px solid black; width:70%;">
+                                                        <div style="margin-bottom: 10px;">
+                                                            <strong>Remarks:</strong>
+                                                            <span t-esc="o.remarks" />
+                                                        </div>
+                                                        <div style="margin-top: 20px; border-top:1px solid;">
+                                                            <strong>In words:</strong>
+                                                            <span t-esc="convert_to_words(converted_values[o.id]['amount_total_mvr'])" />
+                                                        </div>
+                                                    </td>
+                                                    <td colspan="1" style="text-align:right; vertical-align: top; border-left: 1px solid black; padding-right: 20px;">
+                                                        <div style="margin-bottom: 5px;">
+                                                            <strong style="float: left; padding-left: 6px;">Sub Total</strong>
+                                                            <span t-esc="'{0:,.2f}'.format(float(converted_values[o.id]['amount_untaxed_mvr']))" />
+                                                        </div>
+                                                        <div style="margin-bottom: 5px;">
+                                                            <strong style="float: left; padding-left: 6px;">GST</strong>
+                                                            <span t-esc="'{0:,.2f}'.format(float(converted_values[o.id]['amount_tax_mvr']))" />
+                                                        </div>
+                                                        <div style="margin-bottom: 5px;">
+                                                            <strong style="float: left; padding-left: 6px;">Inv Total MVR</strong>
+                                                            <span t-esc="'{0:,.2f}'.format(float(converted_values[o.id]['amount_total_mvr']))" />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border-top: 1px solid black; text-align:center;" colspan="5">
+                                                        Best Oil Company Pvt. Ltd.
+                                                        <br />
+                                                        <br />
+                                                        <br />
+                                                        <br />
+                                                        <div class="main_div_n">
+                                                            <div class="left_div_n" style="text-align:left; margin-left:10px;width:28%;">
+                                                                <span t-esc="o.create_uid.name" /><br />
+                                                                <p style="border-top: 1px dashed black; display: inline-block; width:55%;padding-top: 0;">
+                                                                    Prepared By:</p>
+                                                            </div>
+                                                            <div class="center_div_n" style="text-align:center; margin-left:-10px;width:40%;">
+                                                                <br />
+                                                                <p style="border-top: 1px dashed black; display: inline-block; width:50%;padding-top: 0;">
+                                                                    Checked By:</p>
+                                                            </div>
+                                                            <div class="right_div_n" style="text-align:right; margin-right:10px;float:right !important;width:18%;">
+                                                                <br />
+                                                                <p style="border-top: 1px dashed black; display: inline-block; width:100%;padding-top: 0;">
+                                                                    Delivered By:</p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td style="border-left: 1px solid black; border-top: 1px solid black; text-align:center;" colspan="2">
+                                                        <strong>Received the items in good condition</strong><br />
+                                                        <br />
+                                                        <br />
+                                                        <p style="margin-top:8px;width: 90%;border-top: 1px dashed black; display: inline-block; padding-top: 0;">
+                                                            Received By: Name, Date &amp; Signature
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border-top: 1px solid black;  border-right: 1px solid black;" colspan="7">
+                                                        <span style="text-align:center; font-size:13px; margin: 5px 0;" t-esc="o.narration" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
